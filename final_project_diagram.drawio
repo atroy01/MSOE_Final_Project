@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-08-09T23:05:47.384Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="zKh2FdcbZfg_2bynRS5o" version="21.6.7" type="device">
+<mxfile host="app.diagrams.net" modified="2023-08-09T23:09:05.766Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="E9-LFBRNxWdu2XV5ex4c" version="21.6.7" type="device">
   <diagram name="UML" id="LG2GgT0AXcCSSvdmxa8D">
     <mxGraphModel dx="1195" dy="625" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -50,7 +50,7 @@
           <mxGeometry x="430" y="80" width="330" height="330" as="geometry" />
         </mxCell>
         <mxCell id="YZQNKuaAWGe_UJEVItO6-6" value="" style="verticalLabelPosition=top;html=1;shadow=0;dashed=0;verticalAlign=bottom;strokeWidth=1;shape=mxgraph.ios.iPin;fillColor2=#00dd00;fillColor3=#004400;strokeColor=#006600;" vertex="1" parent="1">
-          <mxGeometry x="620" y="170" width="28" height="70" as="geometry" />
+          <mxGeometry x="620" y="190" width="20" height="50" as="geometry" />
         </mxCell>
         <mxCell id="YZQNKuaAWGe_UJEVItO6-9" value="" style="verticalLabelPosition=top;html=1;shadow=0;dashed=0;verticalAlign=bottom;strokeWidth=1;shape=mxgraph.ios.iPin;fillColor2=#dd0000;fillColor3=#440000;strokeColor=#660000;" vertex="1" parent="1">
           <mxGeometry x="583" y="240" width="24" height="60" as="geometry" />
@@ -105,6 +105,15 @@
         </mxCell>
         <mxCell id="YZQNKuaAWGe_UJEVItO6-31" value="[enter population here]" style="rounded=1;arcSize=9;fillColor=#F7F8F9;align=left;spacingLeft=5;strokeColor=#DEE1E6;html=1;strokeWidth=2;fontColor=#596780;fontSize=12" vertex="1" parent="1">
           <mxGeometry x="60" y="430" width="202.25" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="YZQNKuaAWGe_UJEVItO6-32" value="Number of Countries in Database: 7" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="462" y="423" width="145" height="36.5" as="geometry" />
+        </mxCell>
+        <mxCell id="YZQNKuaAWGe_UJEVItO6-33" value="Countries Selected:&lt;br&gt;Saudi Arabia" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="629.5" y="423" width="145" height="36.5" as="geometry" />
+        </mxCell>
+        <mxCell id="YZQNKuaAWGe_UJEVItO6-34" value="" style="verticalLabelPosition=top;html=1;shadow=0;dashed=0;verticalAlign=bottom;strokeWidth=1;shape=mxgraph.ios.iPin;fillColor2=#00dd00;fillColor3=#004400;strokeColor=#006600;" vertex="1" parent="1">
+          <mxGeometry x="760" y="413" width="20" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
