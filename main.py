@@ -4,52 +4,69 @@
 
 
 import pandas as pd
-from binary_search_tree import Country, Node, CountryBST
+from binary_search_tree import Country, PopulationNode, PopulationBST, CountryBST, BST_Controller
 
 
 def main():
-    mybst = CountryBST()
-    mybst.findCountryFromPopulation(45)
+    # bst = testBST()
+    # print(bst.findPopulationFromCountry('Tuvalu'))
+
+    bst = loadAllCountries(BST_Controller())
+    bst.printByCountry()
+    print(bst.bst_c.size)
 
 
-    mybst.addCountry(Country(55,'England', 'other data'))
-    mybst.addCountry(Country(300, 'USA', 'other data'))
-    mybst.addCountry(Country(1500, 'India', 'other data'))
-    mybst.addCountry(Country(2, 'Vatican City', 'other data'))
-    mybst.addCountry(Country(2, 'Tuvalu', 'other data'))
-    mybst.addCountry(Country(1497, 'China', 'other data'))
-    print(mybst)  # prints the tree largest to smallest followed by a blank line
-
-    mybst.findCountryFromPopulation(56)
-    mybst.findCountryFromPopulation(150)
-    mybst.findCountryFromPopulation(151)
-    mybst.findCountryFromPopulation(152)
-    mybst.findCountryFromPopulation(300)
-    mybst.findCountryFromPopulation(301)
-    mybst.findCountryFromPopulation(1499)
+def createBST():
+    return BST_Controller()
 
 
-    print(f'Number of Countries in Tree: {mybst.size}')
+def addCountryFromDF(row, bst: BST_Controller):
+    return bst.addCountry(Country(row['pop2023'],row['country'],[]))
+
+
+def loadAllCountries(bst: BST_Controller):
+    csv_file_path = 'countries-table.csv'
+    pop_data = pd.read_csv(csv_file_path)
+    pop_data.apply(addCountryFromDF, axis=1, args=(bst,))
+    return bst
+
+
+
+
+def testBST():
+    bst = BST_Controller()  # create the BST
+
+    bst.findPopulationFromCountry('England')
+
+    bst.addCountry(Country(55, 'England', 'other data'))
+    bst.addCountry(Country(300, 'USA', 'other data'))
+    bst.addCountry(Country(1500, 'India', 'other data'))
+    bst.addCountry(Country(2, 'Vatican City', 'other data'))
+    bst.addCountry(Country(2, 'Tuvalu', 'other data'))
+    bst.addCountry(Country(1497, 'China', 'other data'))
+    print(bst)  # prints the tree largest to smallest followed by a blank line
+
+    # Test find by country name
+    bst.findPopulationFromCountry('Tuvalu')
+    bst.findPopulationFromCountry('India')
+    bst.findPopulationFromCountry('USA')
+
+    # Test find by population number
+    bst.findCountryFromPopulation(56)
+    bst.findCountryFromPopulation(150)
+    bst.findCountryFromPopulation(151)
+    bst.findCountryFromPopulation(152)
+    bst.findCountryFromPopulation(300)
+    bst.findCountryFromPopulation(301)
+    bst.findCountryFromPopulation(1499)
+
+    print(f'Number of Countries in Tree: {bst.bst_c.size}')
+
+
     print('debug')
-
-# csv_file_path = 'countries-table.csv'
-# # Read the Population Data from the CSV file into a DataFrame
-# pop_data = pd.read_csv(csv_file_path)
+    return bst
 
 
-
-
-# # Specify the column in which you want to check for duplicate values
-# column_to_check = 'pop2023'  # Replace 'column_name' with the actual column name
-#
-# # Check for duplicate values in the specified column
-# duplicates = df[df.duplicated(subset=column_to_check, keep=False)]
-#
-# if not duplicates.empty:
-#     print("Duplicate values found in the column:")
-#     print(duplicates)
-# else:
-#     print("No duplicate values found in the column.")
 
 
 if __name__ == "__main__":
