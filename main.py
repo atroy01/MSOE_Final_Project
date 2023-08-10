@@ -1,8 +1,6 @@
 # main.py for Final MSOE Python Course
 # Andrew Troy
 # 2023-08-08
-
-
 import pandas as pd
 from binary_search_tree import Country, PopulationNode, PopulationBST, CountryBST, BST_Controller
 
@@ -10,11 +8,13 @@ from binary_search_tree import Country, PopulationNode, PopulationBST, CountryBS
 def main():
     # bst = testBST()
     # print(bst.findPopulationFromCountry('Tuvalu'))
-
-    bst = loadAllCountries(BST_Controller())
+    # bst = loadAllCountries(BST_Controller())
+    # bst.printByCountry()
+    # print(bst.bst_c.size)
+    bst = createAndloadAllCountries()
     bst.printByCountry()
-    print(bst.bst_c.size)
 
+    pass
 
 def createBST():
     return BST_Controller()
@@ -24,20 +24,17 @@ def addCountryFromDF(row, bst: BST_Controller):
     return bst.addCountry(Country(row['pop2023'],row['country'],[]))
 
 
-def loadAllCountries(bst: BST_Controller):
+def createAndloadAllCountries():
+    bst = BST_Controller()
     csv_file_path = 'countries-table.csv'
     pop_data = pd.read_csv(csv_file_path)
     pop_data.apply(addCountryFromDF, axis=1, args=(bst,))
     return bst
 
 
-
-
 def testBST():
     bst = BST_Controller()  # create the BST
-
     bst.findPopulationFromCountry('England')
-
     bst.addCountry(Country(55, 'England', 'other data'))
     bst.addCountry(Country(300, 'USA', 'other data'))
     bst.addCountry(Country(1500, 'India', 'other data'))
@@ -59,15 +56,8 @@ def testBST():
     bst.findCountryFromPopulation(300)
     bst.findCountryFromPopulation(301)
     bst.findCountryFromPopulation(1499)
-
     print(f'Number of Countries in Tree: {bst.bst_c.size}')
-
-
-    print('debug')
     return bst
-
-
-
 
 if __name__ == "__main__":
     main()
