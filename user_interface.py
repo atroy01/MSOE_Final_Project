@@ -78,10 +78,10 @@ class ApplicationGUI:
 
         # Create a list box with the countries
         self.listbox = tk.Listbox(self.root)
-        self.listbox.place(x=650, y=107, anchor='nw')
-        self.listbox.config(height=30, width=30)
-        self.listboxlabel = tk.Label(self.root,text='Countries Database:',bg='lightgrey')
-        self.listboxlabel.place(x=650, y=85, anchor='nw')
+        self.listbox.place(x=670, y=102, anchor='nw')
+        self.listbox.config(height=30, width=35)
+        self.listboxlabel = tk.Label(self.root,text='Database',bg='lightgrey')
+        self.listboxlabel.place(x=670, y=75, anchor='nw')
 
 
     def highlight_country(self, country_to_highlight: str):
