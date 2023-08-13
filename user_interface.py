@@ -1,211 +1,172 @@
 import tkinter as tk
+from tkinter import font
 from tkinter import messagebox
 import main
-from binary_search_tree import BST_Controller
-#
-# def function1():
-#     input_text = entry1.get()
-#     main.main()
-#     # Add your function logic here for field 1
-#     messagebox.showinfo("Function 1 Result", f"Entered Text: {input_text}")
-#
-# def function2():
-#     input_text = entry2.get()
-#     # Add your function logic here for field 2
-#     messagebox.showinfo("Function 2 Result", f"Entered Text: {input_text}")
-#
-# def function3():
-#     input_text = entry3.get()
-#     # Add your function logic here for field 3
-#     messagebox.showinfo("Function 3 Result", f"Entered Text: {input_text}")
-
-# # Create the main application window
-# root = tk.Tk()
-# root.title("Dashboard")
-
-
-# add all countries
-
-# Create text entry fields
-# entry1 = tk.Entry(root)
-# entry2 = tk.Entry(root)
-# entry3 = tk.Entry(root)
-
-# # Create buttons and associate functions
-# button1 = tk.Button(root, text="Run Function 1", command=function1)
-# button2 = tk.Button(root, text="Run Function 2", command=function2)
-# button3 = tk.Button(root, text="Run Function 3", command=function3)
-
-# # Layout using grid
-# entry1.grid(row=0, column=0, padx=10, pady=5)
-# entry2.grid(row=1, column=0, padx=10, pady=5)
-# entry3.grid(row=2, column=0, padx=10, pady=5)
-#
-# button1.grid(row=0, column=1, padx=10, pady=5)
-# button2.grid(row=1, column=1, padx=10, pady=5)
-# button3.grid(row=2, column=1, padx=10, pady=5)
-# button_addAllCountries.grid(row=3, column=1, padx=50, pady=50)
-
-# # Start the GUI event loop
-# root.mainloop()
+from binary_search_tree import BST_Controller, Country
+from entryWithPlaceholder import EntryWithPlaceholder
 
 class ApplicationGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dashboard")
-        self.root.geometry("800x600")
+        self.root.title("Country and Population Dashboard")
+        self.root.geometry("900x600")
         self.root.resizable(False, False)
-        self.root.configure(bg="lightblue")  # Use the color you want
+        self.root.configure(bg="darkgrey")  # Use the color you want
         self.bst = BST_Controller()
 
-        # MASHED UP METHOD (ORIGINAL)
-        # # Add All Countries button
-        # button_addAllCountries = tk.Button(root, text="Add All Countries To Database",
-        #                                    command=self.addAllCountries,
-        #                                    padx=25, pady=10, bg="lightgreen")
-        # button_addAllCountries.pack(padx=10, pady=10, anchor='w')
-        #
-        # # Get Bahamas Population button
-        # button_findBahamas = tk.Button(root, text='Get Bahamas Population',
-        #                                command=self.findBahamas,
-        #                                padx=25, pady=10, bg="lightgreen")
-        # button_findBahamas.pack(padx=10, pady=10, anchor='w')
-        #
-        # # Create List
-        # countries = self.bst.getCountryList()
-        # countryList = ', '.join(countries)
-        # self.txt = tk.Text(self.root, wrap=tk.WORD, width=45, height = 30)
-        # self.txt.insert(tk.END, countryList)
-        # self.txt.place(x=400, y=10, anchor='nw')
-        #
-        # # Create a Scrollbar widget
-        # scrollbar = tk.Scrollbar(root, command=self.txt.yview)
-        # scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        #
-        # # Associate the Scrollbar with the Text widget
-        # self.txt.config(yscrollcommand=scrollbar.set)
-        #
-        # # Create List
-        # countries = self.bst.getCountryList()
-        # countryList = ', '.join(countries)
-        # self.txt = tk.Text(self.root, wrap=tk.WORD, width=45, height=30)
-        # self.txt.insert(tk.END, countryList)
-        #
-        # # Create a Scrollbar widget
-        # scrollbar = tk.Scrollbar(self.root, command=self.txt.yview)
-        # scrollbar.grid(row=0, column=1, sticky=tk.NS)  # Place the scrollbar next to the Text widget
-        #
-        # self.txt.grid(row=0, column=0, sticky=tk.NSEW)  # Use NSEW to make Text widget expand with window
-        #
-        # # Configure row and column weights to make widgets expand properly
-        # self.root.grid_rowconfigure(0, weight=1)
-        # self.root.grid_columnconfigure(0, weight=1)
-
-
-        ## GRID METHOD
-        # # Add All Countries button
-        # button_addAllCountries = tk.Button(root, text="Add All Countries To Database",
-        #                                    command=self.addAllCountries,
-        #                                    padx=25, pady=10, bg="lightgreen")
-        # button_addAllCountries.grid(row=0, column=0, padx=10, pady=10, sticky='w')
-        #
-        # # Get Bahamas Population button
-        # button_findBahamas = tk.Button(root, text='Get Bahamas Population',
-        #                                command=self.findBahamas,
-        #                                padx=25, pady=10, bg="lightgreen")
-        # button_findBahamas.grid(row=1, column=0, padx=10, pady=10, sticky='w')
-        #
-        # # Create List
-        # countries = self.bst.getCountryList()
-        # countryList = ', '.join(countries)
-        # self.txt = tk.Text(self.root, wrap=tk.WORD, width=45, height=30)
-        # self.txt.insert(tk.END, countryList)
-        # self.txt.grid(row=0, column=1, rowspan=2, padx=10, pady=10, sticky='nw')
-        #
-        # # Create a Scrollbar widget
-        # scrollbar = tk.Scrollbar(root, command=self.txt.yview)
-        # scrollbar.grid(row=0, column=2, rowspan=2, sticky='ns')
-        #
-        # # Associate the Scrollbar with the Text widget
-        # self.txt.config(yscrollcommand=scrollbar.set)
-
-
-        ### PACK METHOD
-        # # Add All Countries button
-        # button_addAllCountries = tk.Button(root, text="Add All Countries To Database",
-        #                                    command=self.addAllCountries,
-        #                                    padx=25, pady=10, bg="lightgreen")
-        # button_addAllCountries.pack(anchor='w', padx=10, pady=10)
-        #
-        # # Get Bahamas Population button
-        # button_findBahamas = tk.Button(root, text='Get Bahamas Population',
-        #                                command=self.findBahamas,
-        #                                padx=25, pady=10, bg="lightgreen")
-        # button_findBahamas.pack(anchor='w', padx=10, pady=10)
-        #
-        # # Create List
-        # countries = self.bst.getCountryList()
-        # countryList = ', '.join(countries)
-        # self.txt = tk.Text(self.root, wrap=tk.WORD, width=45, height=30)
-        # self.txt.insert(tk.END, countryList)
-        # self.txt.pack(side=tk.LEFT, padx=10, pady=10)
-        #
-        # # Create a Scrollbar widget
-        # scrollbar = tk.Scrollbar(root, command=self.txt.yview)
-        # scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        #
-        # # Associate the Scrollbar with the Text widget
-        # self.txt.config(yscrollcommand=scrollbar.set)
+        # Add Title
+        my_font = font.Font(family='Helvetica', size=30)
+        self.titleText = tk.Label(self.root, text='Country and Population Dashboard', bg="lightgrey", font=my_font)
+        self.titleText.place(x=150, y=10)
 
         # PLACE METHOD
         # Add All Countries button
-        button_addAllCountries = tk.Button(root, text="Add All Countries To Database",
+        button_addAllCountries = tk.Button(root, text="Add All 234 Countries To Database",
                                            command=self.addAllCountries,
-                                           padx=25, pady=10, bg="lightgreen")
-        button_addAllCountries.place(x=10, y=35, anchor='w')
+                                           padx=25, pady=10, bg="lightgrey", width=20)
+        button_addAllCountries.place(x=10, y=85, anchor='nw')
+        button_clearAllCountries = tk.Button(root, text="Clear Database",
+                                           command=self.clearAllCountries,
+                                           padx=25, pady=10, bg="lightgrey", width=15)
+        button_clearAllCountries.place(x=225, y=85, anchor='nw')
 
-        # Get Bahamas Population button
-        button_findBahamas = tk.Button(root, text='Get Bahamas Population',
-                                       command=self.findBahamas,
-                                       padx=25, pady=10, bg="lightgreen")
-        button_findBahamas.place(x=10, y=100, anchor='w')
+        # Add Find Countries button and entry
+        self.entry_findCountry = EntryWithPlaceholder(root, 'Enter Population #')
+        self.entry_findCountry.place(x=10, y=150, anchor='nw')
+        self.button_findCountry = tk.Button(root, text="Find Country From Population",
+                                           command=self.findCountry,
+                                           padx=25, pady=10, bg="lightgrey", width=25)
+        self.button_findCountry.place(x=150, y=150, anchor='nw')
+        self.findCountryOutput = tk.Label(self.root, text='-', wraplength=260, justify='left')
+        self.findCountryOutput.place(x=400, y=150, anchor='nw')
 
-        # Create List
+        # Add Find Population button and entry
+        self.entry_findPopulation = EntryWithPlaceholder(root, 'Enter Country name')
+        self.entry_findPopulation.place(x=10, y=250, anchor='nw')
+        self.button_findPopulation = tk.Button(root, text="Find Population From Country Name",
+                                           command=self.findPopulation,
+                                           padx=25, pady=10, bg="lightgrey", width=25)
+        self.button_findPopulation.place(x=150, y=250, anchor='nw')
+        self.findPopulationOutput = tk.Label(self.root, text='-', wraplength=260, justify='left')
+        self.findPopulationOutput.place(x=400, y=250, anchor='nw')
+
+        # Add Add New Country fields
+        self.entry_addCountry = EntryWithPlaceholder(root, 'Enter Country Name')
+        self.entry_addCountry.place(x=10, y=350, anchor='nw')
+        self.entry_addPopulation = EntryWithPlaceholder(root, 'Enter Population #')
+        self.entry_addPopulation.place(x=10, y=370, anchor='nw')
+        self.button_addCountry = tk.Button(root, text="Add Country To Database",
+                                               command=self.addCountry,
+                                               padx=25, pady=10, bg="lightgrey", width=25)
+        self.button_addCountry.place(x=150, y=350, anchor='nw')
+        self.addCountryOutput = tk.Label(self.root, text='-', wraplength=250, justify='left')
+        self.addCountryOutput.place(x=400, y=350, anchor='nw')
+
+
+        # Find Countries in Range
+        self.entry_lowRange = EntryWithPlaceholder(root, 'Enter Low Range')
+        self.entry_lowRange.place(x=10, y=450, anchor='nw')
+        self.entry_highRange = EntryWithPlaceholder(root, 'Enter High Range')
+        self.entry_highRange.place(x=10, y=470, anchor='nw')
+        self.button_withinRange = tk.Button(root, text="Find Countries within Population Range",
+                                           command=self.findCountriesWithinRange,
+                                           padx=25, pady=10, bg="lightgrey", width=25)
+        self.button_withinRange.place(x=150, y=450, anchor='nw')
+        self.rangeOutput = tk.Label(self.root, text='-', wraplength=260, justify='left')
+        self.rangeOutput.place(x=400, y=450, anchor='nw')
+
+
+        # Create a list box with the countries
+        self.listbox = tk.Listbox(self.root)
+        self.listbox.place(x=650, y=107, anchor='nw')
+        self.listbox.config(height=30, width=30)
+        self.listboxlabel = tk.Label(self.root,text='Countries Database:',bg='lightgrey')
+        self.listboxlabel.place(x=650, y=85, anchor='nw')
+
+
+    def highlight_country(self, country_to_highlight: str):
+        for index in range(self.listbox.size()):
+            item_text = self.listbox.get(index)
+            if country_to_highlight.lower() == item_text.lower():  # Case-insensitive match
+                self.listbox.itemconfig(index, {'bg': 'yellow'})
+
+    def clear_highlighting(self):
+        for index in range(self.listbox.size()):
+            self.listbox.itemconfig(index, {'bg': 'white'})
+
+    def updateListBox(self):
+        self.listbox.delete(0,tk.END)
         countries = self.bst.getCountryList()
-        countryList = ', '.join(countries)
-        self.txt = tk.Text(root, wrap=tk.WORD, width=50, height=35)
-        self.txt.insert(tk.END, countryList)
-        self.txt.place(x=300, y=10, anchor='nw')
-
-        # Create a Scrollbar widget
-        scrollbar = tk.Scrollbar(root, command=self.txt.yview)
-        scrollbar.place(x=702, y=10, anchor='nw', height=564)
-
-        # Associate the Scrollbar with the Text widget
-        self.txt.config(yscrollcommand=scrollbar.set)
-
-    def updateList(self):
-        countries = self.bst.getCountryList()
-        countryList = ', '.join(countries)
-        self.txt.delete(1.0, tk.END)  # Clear previous content
-        self.txt.insert(tk.END, countryList)
-
-
-        #
-        # txt = tk.Text(self.root, fg='black', bg='lightgreen', relief=RAISED)
-        # txt.insert(INSERT,)
-        # countryList = tk.Label(self.root, wraplength=390, text=countryList)
-        # countryList.place(x=400, y=10, anchor='nw')
-
+        for country in countries:
+            self.listbox.insert(tk.END, country)
 
     def addAllCountries(self):
         self.bst = main.createAndloadAllCountries()
         self.bst.printByCountry()
-        self.updateList()
+        self.updateListBox()
+
+    def clearAllCountries(self):
+        self.bst.bst_p.root = None
+        self.bst.bst_c.root = None
+        self.updateListBox()
+
+    def findCountry(self):
+        self.clear_highlighting()
+        population = self.entry_findCountry.get()
+        ansList = []
+        try:
+            population = int(population)
+            ansList = self.bst.bst_p.findCountryFromPopulation(int(population))
+            if ansList[1]:
+                for country in ansList[1]:
+                    self.highlight_country(country.name)
+        except ValueError:
+            print('You need to enter a number')
+            ansList.append('You need to enter a number')
+        self.findCountryOutput.config(text=ansList[0])
 
 
-    def findBahamas(self):
-        self.bst.findPopulationFromCountry('Bahamas')
+    def findPopulation(self):
+        self.clear_highlighting()
+        country = self.entry_findPopulation.get()
+        self.highlight_country(country)
+        try:
+            ans = self.bst.bst_c.findPopulationFromCountry(str(country).lower())
+        except ValueError:
+            print('You need to enter text')
+            ans = 'You need to enter text'
+        self.findPopulationOutput.config(text=ans)
+
+    def addCountry(self):
+        countryName = self.entry_addCountry.get()
+        countryPop = self.entry_addPopulation.get()
+        try:
+            self.bst.addCountry(Country(int(countryPop),str(countryName)))
+            ans = f'A country named {str(countryName)}, with population of {int(countryPop):,} added to list.'
+            print('hello')
+        except ValueError:
+            ans = 'Country name must be text.\nCountry population must be a number.'
+        self.addCountryOutput.config(text=ans)
+        self.updateListBox()
+        self.highlight_country(countryName)
+
+    def findCountriesWithinRange(self):
+        low = self.entry_lowRange.get()
+        high = self.entry_highRange.get()
+        countries = self.bst.bst_p.findCountriesWithinRange(low, high)
+        self.clear_highlighting()
+        #print(f'Countries in range: {[country.name for country in countries]}')
+        if (isinstance(countries, list) and len(countries) > 0):
+            for country in countries:
+                print(f'Country: {country.enteredName} | Pop: {country.population:,}')
+                self.highlight_country(country.name)
+            self.rangeOutput.config(text='Countries within range are highlighted in database.')
+        elif (isinstance(countries, list) and len(countries) == 0):
+            print('No countries in database')
+            self.rangeOutput.config(text='No countries in database.')
+        else:
+            print('Invalid Entry')
+            self.rangeOutput.config(text='Invalid Entry')
 
 
 if __name__ == "__main__":

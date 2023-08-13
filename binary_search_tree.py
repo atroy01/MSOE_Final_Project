@@ -5,7 +5,8 @@
 class Country(object):  # One part of the data Tree
     def __init__(self, population: int, name: str, other_data=[]):  # Constructor
         self.population = population  # the population of the country. This is the key for the BST
-        self.name = name
+        self.name = name.lower()
+        self.enteredName = name  # use this for storing the name as it was entered. Helps to preserve capitalization.
         self.other_data = other_data
         self.left = None  # the left child
         self.right = None  # the right child
@@ -22,8 +23,8 @@ class PopulationNode(object):  # One part of the data Tree
         self.countries = countries
 
     def __str__(self):
-        country_names = ', '.join(country.name for country in self.countries)
-        return f'{self.population}: {country_names}'
+        country_names = ', '.join(country.enteredName for country in self.countries)
+        return f'{self.population:,} - {country_names}'
 
 
 class PopulationBST(object):  # A binary search tree of data elements
@@ -59,28 +60,65 @@ class PopulationBST(object):  # A binary search tree of data elements
         print(f'Looking for country with population of {population}.')
         if not self.root:
             print('No tree exists')
+            return ['No countries to search from.', None]
         else:
-            self._findCountryFromPopulation(self.root, population, None, None)
-        return
+            return self._findCountryFromPopulation(self.root, population, None, None)
 
     def _findCountryFromPopulation(self, cur: PopulationNode, population: int, lastLeft: PopulationNode, lastRight: PopulationNode,):
+        countriesNames = []
         if population > cur.population:
             if cur.right:
-                self._findCountryFromPopulation(cur.right, population, lastLeft, cur)
+                return self._findCountryFromPopulation(cur.right, population, lastLeft, cur)
             else:
                 lastRight = cur
-                print(f'   Not an exact match, but next smallest is {lastRight}, and next largest is {lastLeft}')
-                return
+                ans = f'No exact match.\nNext smallest country: {lastRight}.\nNext largest country: {lastLeft}'
+                print(ans)
+                if lastRight: countriesNames.extend(lastRight.countries)
+                if lastLeft: countriesNames.extend(lastLeft.countries)
+                return [ans, countriesNames]
         elif population < cur.population:
             if cur.left:
-                self._findCountryFromPopulation(cur.left, population, cur, lastRight)
+                return self._findCountryFromPopulation(cur.left, population, cur, lastRight)
             else:
                 lastLeft = cur
-                print(f'   Not an exact match, but next smallest is {lastRight}, and next largest is {lastLeft}')
-                return
+                ans = f'No exact match.\nNext smallest country: {lastRight}.\nNext largest country: {lastLeft}'
+                print(ans)
+                if lastRight: countriesNames.extend(lastRight.countries)
+                if lastLeft: countriesNames.extend(lastLeft.countries)
+                return [ans, countriesNames]
         elif population == cur.population:
-            print(f'   Found a match with that population size: {cur}')
-            return
+            ans = f'Exact match: {cur}'
+            countriesNames = cur.countries
+            print(ans)
+            return [ans, countriesNames]
+
+
+    def findCountriesWithinRange(self, low: int, high: int):
+        countries = []  # initialize a countries variable
+        try:
+            low = int(low)
+            high = int(high)
+            cur = self.root
+            cur.left
+            cur.right
+            countries = self._findCountriesWithinRange(cur, low, high, countries)  # do a full search of the tree adding any countries that meet the criteria to the list
+        except ValueError:
+            countries = f'Invalid entry.'
+        except AttributeError:  # I assume this is what gets thrown if self.root fails?
+            countries = f'No countries in database.'
+        print(countries)
+        return countries
+
+    def _findCountriesWithinRange(self, cur: PopulationNode, low: int, high: int, countries: []):
+        if cur.left:
+            countries = self._findCountriesWithinRange(cur.left, low, high, countries)
+        if cur.right:
+            countries = self._findCountriesWithinRange(cur.right, low, high, countries)
+        if ((cur.population >= low) and (cur.population <= high)):
+            countries.extend(cur.countries)
+            return countries
+        return countries
+
 
 
     def printLargestToSmallest(self, cur):
@@ -100,7 +138,7 @@ class CountryBST(object):  # A binary search tree of data elements
         self.root = None  # Reference to start of BST
         self.size = 0  # variable to keep track of the size of the tree
 
-    def addCountry(self, country: Country):  # this is the starter form to check if the roo exists
+    def addCountry(self, country: Country):  # this is the starter form to check if the root exists
         self.size += 1
         if not self.root:
             self.root = country  # if no root exists, then make the passed country the root
@@ -120,38 +158,41 @@ class CountryBST(object):  # A binary search tree of data elements
             else:  # the right Country does not exist, so we can add this Country there
                 cur.right = countryToAdd
         if countryToAdd.name == cur.name:  # special case where the population of the country being added is already within the tree
-            print('Country already added to tree')
+            print('Country already added to database')
 
     def findPopulationFromCountry(self, name: str):
         print(f'Looking for population of country {name}.')
         if not self.root:
-            print('   No tree exists')
+            print('No database exists')
+            return 'No countries in database.'
         else:
-            self._findPopulationFromCountry(self.root, name)
-        return
+            return self._findPopulationFromCountry(self.root, name)
 
     def _findPopulationFromCountry(self, cur: Country, name: str):
         if name > cur.name:
             if cur.right:
-                self._findPopulationFromCountry(cur.right, name)
+                return self._findPopulationFromCountry(cur.right, name)
             else:
-                print(f'   Country {name} does not exist in tree.')
-                return
+                ans = f'Country {name} does not exist database.'
+                print(ans)
+                return ans
         elif name < cur.name:
             if cur.left:
-                self._findPopulationFromCountry(cur.left, name)
+                return self._findPopulationFromCountry(cur.left, name)
             else:
-                print(f'   Country {name} does not exist in tree.')
-                return
+                ans = f'Country {name} does not exist in database.'
+                print(ans)
+                return ans
         elif name == cur.name:
-            print(f'   The population is {cur.population}')
-            return
+            ans = f'The population is {cur.population:,}'
+            print(ans)
+            return ans
 
     def printLargestToSmallest(self, cur: Country, countryList=[]):
         if cur.left:
             self.printLargestToSmallest(cur.left, countryList)
         print(f'{cur}: {cur.population}')
-        countryList.append(cur.name)
+        countryList.append(cur.enteredName)
         if cur.right:
             self.printLargestToSmallest(cur.right, countryList)
         return countryList
@@ -190,6 +231,6 @@ class BST_Controller(object):
 
     def getCountryList(self):
         if not self.bst_c.root:
-            return ['No Countries In Database']
+            return []
         else:
             return self.bst_c.printLargestToSmallest(self.bst_c.root, [])
