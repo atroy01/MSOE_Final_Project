@@ -3,7 +3,7 @@
 # 2023-08-08
 import pandas as pd
 from binary_search_tree import Country, PopulationNode, PopulationBST, CountryBST, BST_Controller
-
+import csv
 
 def main():
     # bst = testBST()
@@ -30,6 +30,19 @@ def createAndloadAllCountries():
     pop_data = pd.read_csv(csv_file_path)
     pop_data.apply(addCountryFromDF, axis=1, args=(bst,))
     return bst
+
+
+def addCountryToCSV(countryToAdd: Country):
+    # Data to be appended
+    new_data = [countryToAdd.name, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', countryToAdd.population, '', '']
+    # CSV file path
+    csv_file_path = 'countries-table.csv'
+    print('adding to csv')
+    # Open the CSV file in append mode
+    with open(csv_file_path, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        # Write the new data to the CSV file
+        writer.writerow(new_data)
 
 
 def testBST():

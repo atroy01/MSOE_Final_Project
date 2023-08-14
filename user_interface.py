@@ -21,14 +21,14 @@ class ApplicationGUI:
 
         # PLACE METHOD
         # Add All Countries button
-        button_addAllCountries = tk.Button(root, text="Add All 234 Countries To Database",
+        button_addAllCountries = tk.Button(root, text="Add All Countries From CSV To Database",
                                            command=self.addAllCountries,
-                                           padx=25, pady=10, bg="lightgrey", width=20)
+                                           padx=25, pady=10, bg="lightgrey", width=25)
         button_addAllCountries.place(x=10, y=85, anchor='nw')
         button_clearAllCountries = tk.Button(root, text="Clear Database",
                                            command=self.clearAllCountries,
                                            padx=25, pady=10, bg="lightgrey", width=15)
-        button_clearAllCountries.place(x=225, y=85, anchor='nw')
+        button_clearAllCountries.place(x=250, y=85, anchor='nw')
 
         # Add Find Countries button and entry
         self.entry_findCountry = EntryWithPlaceholder(root, 'Enter Population #')
@@ -141,14 +141,18 @@ class ApplicationGUI:
         countryName = self.entry_addCountry.get()
         countryPop = self.entry_addPopulation.get()
         try:
+            countryToAdd = Country(int(countryPop), str(countryName))
             self.bst.addCountry(Country(int(countryPop),str(countryName)))
-            ans = f'A country named {str(countryName)}, with population of {int(countryPop):,} added to list.'
+            ans = f'A country named {str(countryName)}, with population of {int(countryPop):,} added to database and CSV.'
+            self.bst.bst_c.addToCSV(countryToAdd)
             print('hello')
         except ValueError:
             ans = 'Country name must be text.\nCountry population must be a number.'
         self.addCountryOutput.config(text=ans)
         self.updateListBox()
         self.highlight_country(countryName)
+
+
 
     def findCountriesWithinRange(self):
         low = self.entry_lowRange.get()

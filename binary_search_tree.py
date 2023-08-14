@@ -1,6 +1,7 @@
 # Binary Search Tree classes for Project 10
 # Andrew Troy
 # 2023-08-09
+import main
 
 class Country(object):  # One part of the data Tree
     def __init__(self, population: int, name: str, other_data=[]):  # Constructor
@@ -142,6 +143,7 @@ class CountryBST(object):  # A binary search tree of data elements
         self.size += 1
         if not self.root:
             self.root = country  # if no root exists, then make the passed country the root
+            # self.addToCSV(country)
         else:
             self._addCountry(self.root, country)  # enter the recursive function
         return
@@ -152,13 +154,19 @@ class CountryBST(object):  # A binary search tree of data elements
                 self._addCountry(cur.left, countryToAdd)
             else:  # the left Country does not exist, so we can add this Country there
                 cur.left = countryToAdd
+                # self.addToCSV(countryToAdd)
         if countryToAdd.name > cur.name:
             if cur.right:
                 self._addCountry(cur.right, countryToAdd)
             else:  # the right Country does not exist, so we can add this Country there
                 cur.right = countryToAdd
+                # self.addToCSV(countryToAdd)
         if countryToAdd.name == cur.name:  # special case where the population of the country being added is already within the tree
             print('Country already added to database')
+
+
+    def addToCSV(self, countryToAdd: Country):
+        main.addCountryToCSV(countryToAdd)
 
     def findPopulationFromCountry(self, name: str):
         print(f'Looking for population of country {name}.')
